@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Paramétrage des alertes</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/param_alertes.css') }}">
+</head>
+<header>
+    <div class="header">
+        <h1 class="username">{{datas.prenom}} {{datas.nom}}</h1>
+        <button class="btn-accueil" onclick="window.location=`http://127.0.0.1:5000`">Retour accueil</button>
+        <button class="disconnect-btn">Déconnexion</button>
+    </div>
+</header>
+    <body>
+        {% if message != '' %}
+        <script>
+            alert("{{ message }}");
+        </script>
+        {% endif %}
+        <div class="creation-alerte">
+            <form method="POST" action="">
+                <h1 class="titre-page">Création d'une alerte</h1>
+                <div id="select-sonde">
+                    <fieldset>
+                        <legend>Sonde concernée par l'alerte :</legend>
+                        {% for i in range(sondes|length) %}
+                        {% if i == 0 %}
+                        <input type="radio" id={{ sondes[i].nom }} name="sonde" value={{ sondes[i].id }} checked>
+                        {% else %}
+                        <input type="radio" id={{ sondes[i].nom }} name="sonde" value={{ sondes[i].id }}>
+                        {% endif %}
+                        <label for={{ sondes[i].nom }}>{{ sondes[i].nom }}</label>
+                        {% endfor %}
+                    </fieldset>
+                </div>
+                <div id="select-type-sens">
+                <fieldset>
+                        <legend>Type d'alerte :</legend>
+                        <input type="radio" id="temperature" name="type" value="Température" checked>
+                        <label for="temperature">Température</label><br>
+                        <input type="radio" id="humidite" name="type" value="Humidité">
+                        <label for="humidite">Humidité</label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Signe :</legend>
+                        <input type="radio" id="superieur" name="sens" value=">" checked>
+                        <label for="superieur">></label><br>
+                        <input type="radio" id="inferieur" name="sens" value="<">
+                        <label for="inferieur"><</label>
+                    </fieldset>
+                </div>
+                <div class="div-seuil-freq">
+                    <label for="seuil">Seuil :</label>
+                    <input id="seuil" name="seuil" type="number" min="-6" max="99" placeholder="Valeur seuil" class="seuil" />
+                </div>
+                  <div class="div-seuil-freq">
+                <label for="freq">Fréquence :</label>
+                <input id="freq" name="freq" type="number" min="1" max="24" placeholder="Fréquence (heures)" class="seuil" />
+                  </div>
+                  <div class="btn">
+                <input class="btn-submit" type="submit" value="Créer alerte"></input>
+              </div>
+            </form>
+        </div>
+        <div class="container-footer">
+            <footer>
+                <h2 class="ip-adress">Adresse IP : {{ datas.ip }}</h2>
+            </footer>
+        </div>
+    </body>
+</html>

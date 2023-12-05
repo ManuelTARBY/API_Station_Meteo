@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gestion_sondes.css') }}">
+    <script src="{{ url_for('static', filename='js/gestion_sondes.js') }}"></script>
+    <title>{{title}}</title>
+</head>
+<header>
+    <div class="header">
+        <h1 class="username">{{util.prenom}} {{util.nom}}</h1>
+        <button class="btn-accueil" onclick="window.location=`http://127.0.0.1:5000`">Retour accueil</button>
+        <button class="disconnect-btn">Déconnexion</button>
+    </div>
+</header>
+
+<body>
+    {% if message != '' %}
+    <script>
+        alert("{{ message }}");
+    </script>
+    {% endif %}
+    <h1 id="present-tab-sonde">Liste des sondes</h1>
+    <div class="container-tab-sonde">
+        <form method="POST" action="">
+            <table class="tabdatas">
+                <tr>
+                    <td class="coltitre">Etat</td>
+                    <td class="coltitre">Identifiant</td>
+                    <td class="coltitre">Nom</td>
+                    <td class="coltitre">Changer de nom</td>
+                    <td class="coltitre">Supprimer</td>
+                </tr>
+                {% for sonde in sondes %}
+                <tr class="cell">
+                    <td>
+                        {% if sonde.statut == 1 %}
+                        <img src="static/img/active.png"><br>
+                        <label>
+                            <input type="radio" name="{{sonde.id}}" value="1" checked> Activer<br>
+                        </label>
+                        <label>
+                            <input type="radio" name="{{sonde.id}}" value="0"> Désactiver
+                        </label>
+                        <button class="btn-enr" type="submit" name="action"
+                            value="update{{ sonde.id }}">Enregistrer</button>
+                        {% else %}
+                        <img src="static/img/inactive.png"><br>
+                        <label>
+                            <input type="radio" name="{{sonde.id}}" value="1"> Activer<br>
+                        </label>
+                        <label>
+                            <input type="radio" name="{{sonde.id}}" value="0" checked> Désactiver
+                        </label>
+                        <button class="btn-enr" type="submit" name="action"
+                            value="update{{ sonde.id }}">Enregistrer</button>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ sonde.id }}
+                    </td>
+                    <td>
+                        {{ sonde.nom }}
+                    </td>
+                    <td>Nouveau nom<br>
+                        <input class="input-name" type="text" name="name{{ sonde.id }}">
+                        <button class="btn-enr" type="submit" name="action"
+                            value="update{{ sonde.id }}">Enregistrer</button>
+                    </td>
+                    <td>
+                        <button class="btn-suppr" type="submit" name="action"
+                            value="delete{{ sonde.id }}">Supprimer</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <div class="cree-sonde">
+                <p>
+                    <label>
+                        <input class="nom-cree" type="number" name="cree-id-sonde" minlength="8" maxlength="8"
+                            placeholder="ID de la sonde">
+                    </label>
+                    <label>
+                        <input class="nom-cree" type="text" name="cree-nom-sonde" minlength="1"
+                            placeholder="Nom de la sonde">
+                    </label>
+                    <button class="btn-cree" type="submit" name="action" value="ajoute">Ajouter la sonde</button>
+                </p>
+            </div>
+        </form>
+    </div>
+    <div class="container-footer">
+        <footer>
+            <h2 class="ip-adress">Adresse IP : {{ ip }}</h2>
+        </footer>
+    </div>
+</body>
+
+</html>
