@@ -1,5 +1,5 @@
 # API_RESTFUL
-L'API permet de récupérer des données météorologiques auprès d'un Webservice, de traiter les données reçues de ce webservice, les stocker dans une base de données et, enfin, de les récupérer depuis la base de données pour les afficher dans une interface web.
+L'API permet de récupérer des données météorologiques auprès d'un Webservice, de traiter les données reçues, les stocker dans une base de données et, enfin, de les récupérer depuis la base de données pour les afficher dans une interface web.
 
 Depuis l'interface web, différentes routes sont possibles pour récupérer des données :
 
