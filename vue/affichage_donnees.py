@@ -101,17 +101,20 @@ def lancer_app():
             connexion.close()
             return render_template('templates/param_alertes.html', sondes=sondes, message='', datas=datas)
         elif request.method == "POST":
-            tabDonnees = [request.form["seuil"], request.form["freq"], request.form["type"], request.form["sens"], request.form["sonde"]]
-            if tabDonnees[0] == '' or tabDonnees[1] == '':
+            # tabDonnees = [request.form["seuil"], request.form["freq"], request.form["type"], request.form["sens"], request.form["sonde"]]
+            donnees = {"seuil": request.form["seuil"], "freq": request.form["freq"], "type": request.form["type"], 
+                          "ope": request.form["sens"], "idSonde": request.form["sonde"]}
+            if donnees["seuil"] == '' or donnees["freq"] == '':
                 connexion = connexion_bdd(user, host, db)
                 sondes = recup_sondes(connexion)
                 connexion.close()
                 return render_template('templates/param_alertes.html', sondes=sondes, message="Veuillez renseignez les champs seuil ET fréquence.")
-            connexion = connexion_bdd(user, host, db)
-            cree_alerte(connexion, tabDonnees)
-            data = recup_des_releves_sonde(connexion, 62190434)
-            connexion.close()
-            return redirect(url_for('accueil', data=data))
+            else:
+                connexion = connexion_bdd(user, host, db)
+                cree_alerte(connexion, donnees)
+                data = recup_des_releves_sonde(connexion, 62190434)
+                connexion.close()
+                return redirect(url_for('accueil', data=data))
             
     if __name__ == "vue.affichage_donnees":
         app.run(debug=True)

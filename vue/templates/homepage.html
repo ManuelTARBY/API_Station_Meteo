@@ -121,15 +121,15 @@
         {% else %}
         <p class="title-alerte">Vous avez {{ lesalertes|length }} alertes :</p>
         {% endif %}
-        {% for i in range(lesalertes|length) %}
-        {% if lesalertes[i].type == "Humidité" %}
-        <p>Alerte n°{{ i+1 }} : Sonde {{ lesalertes[i].sonde }} - {{ lesalertes[i].type }} {{ lesalertes[i].operateur }} {{ lesalertes[i].seuil }}% - Envoi
-            toutes les {{ lesalertes[i].freq }} heures</p>
-        {% else %}
-        <p>Alerte n°{{ i+1 }} : Sonde {{ lesalertes[i].sonde }} - {{ lesalertes[i].type }} {{ lesalertes[i].operateur }} {{ lesalertes[i].seuil }}°C - Envoi
-            toutes les {{ lesalertes[i].freq }} heures</p>
-        {% endif %}
-        {% endfor %}
+            {% for alerte in lesalertes %}
+                {% if alerte.type == "Humidité" %}
+                <p>Alerte n°{{ loop.index }} : Sonde {{ alerte.sonde }} - {{ alerte.type }} {{ alerte.ope }} {{ alerte.seuil }}% - Envoi
+                    toutes les {{ alerte.freq }} heures</p>
+                {% else %}
+                <p>Alerte n°{{ loop.index }} : Sonde {{ alerte.sonde }} - {{ alerte.type }} {{ alerte.ope }} {{ alerte.seuil }}°C - Envoi
+                    toutes les {{ alerte.freq }} heures</p>
+                {% endif %}
+            {% endfor %}
         {% endif %}
     </div>
 </body>

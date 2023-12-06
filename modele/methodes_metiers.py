@@ -139,7 +139,7 @@ def maj_sonde(connexion, sonde: dict):
     param sonde: Données de sonde à modifier
     """
     cursor = connexion.cursor()
-    req = f"UPDATE `sonde` SET `Nom`='{sonde['nom']}', `Active`='{sonde['statut']}' WHERE idsonde = {sonde['id']}"
+    req = f"UPDATE `sonde` SET `Nom`='{sonde['nom']}', `Active`='{sonde['statut']}' WHERE idSonde = {sonde['id']}"
     cursor.execute(req)
     connexion.commit()
     cursor.close()
@@ -153,7 +153,7 @@ def maj_statut_sonde(connexion, sonde: dict):
     param sonde: Sonde avec son nouveau statut à mettre à jour
     """
     cursor = connexion.cursor()
-    req = f"UPDATE `sonde` SET `Active`='{sonde['statut']}' WHERE idsonde = {sonde['id']}"
+    req = f"UPDATE `sonde` SET `Active`='{sonde['statut']}' WHERE idSonde = {sonde['id']}"
     cursor.execute(req)
     connexion.commit()
     cursor.close()
@@ -308,7 +308,22 @@ def cree_alerte(conn, datas: list):
     param datas: Données de l'alerte devant être créée
     """
     cursor = conn.cursor()
-    req = f"INSERT INTO alerte (Niv, Operateur, Type, Active, Utilisateur_idUtilisateur, frequence_envoi_mail, Sonde_idSonde) VALUES({datas[0]}, \"{datas[3]}\", \"{datas[2]}\", 1, 1, {datas[1]}, \"{datas[4]}\")"
+    # req = f"INSERT INTO alerte (Niv, Operateur, Type, Active, Utilisateur_idUtilisateur, frequence_envoi_mail, Sonde_idSonde) VALUES({datas[0]}, \"{datas[3]}\", \"{datas[2]}\", 1, 1, {datas[1]}, \"{datas[4]}\")"
+    req = f"INSERT INTO alerte (Niv, Operateur, Type, Active, Utilisateur_idUtilisateur, frequence_envoi_mail, Sonde_idSonde) VALUES({datas["seuil"]}, \"{datas["ope"]}\", \"{datas["type"]}\", 1, 1, {datas["freq"]}, \"{datas["idSonde"]}\")"
+    cursor.execute(req)
+    conn.commit()
+    cursor.close()
+
+
+def supp_alerte(conn, alerte: dict):
+    """
+    Supprime l'alerte dans la base de données
+
+    param conn: Connexion à la base de données
+    param alerte: Alerte devant être supprimée
+    """
+    cursor = conn.cursor()
+    req = f"DELETE FROM alerte WHERE idAlerte = {alerte["id"]}"
     cursor.execute(req)
     conn.commit()
     cursor.close()
