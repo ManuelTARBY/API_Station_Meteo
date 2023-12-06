@@ -63,7 +63,8 @@ CREATE TABLE sonde (
 INSERT INTO sonde (idSonde, Nom, Active) VALUES
 ('06190485', 'Salon', 1),
 ('62182233', 'Cour', 1),
-('62190434', 'Jardin', 1);
+('62190434', 'Jardin', 0),
+('06190412', 'Grenier', 1);
 
 -- --------------------------------------------------------
 
@@ -99,13 +100,6 @@ CREATE TABLE utilisateur (
   account_API varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   mdp_appli varchar(48) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table utilisateur
---
-
-INSERT INTO utilisateur (idUtilisateur, Prenom, Nom, Numero_telephone, Email, Identifiant, Mot_de_passe, account_API, mdp_appli) VALUES
-(1, 'Jack', 'THIEM', 'jackthiem311@gmail.com', NULL, NULL, NULL, '16L1SPQZS3', NULL);
 
 --
 -- Index pour les tables déchargées
