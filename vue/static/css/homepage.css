@@ -52,6 +52,10 @@ button {
     cursor: pointer;
 }
 
+input, label, legend {
+    color: white;
+}
+
 .map-title {
     color: white;
     margin: 15px 0 5px 115px;
