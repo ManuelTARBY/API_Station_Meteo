@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/gestion_sondes.css') }}">
     <script src="{{ url_for('static', filename='js/gestion_sondes.js') }}"></script>
-    <title>{{title}}</title>
+    <title>Gestion des sondes</title>
 </head>
 <header>
     <div class="header">
@@ -78,8 +78,8 @@
             <div class="cree-sonde">
                 <p>
                     <label>
-                        <input class="nom-cree" type="number" name="cree-id-sonde" minlength="8" maxlength="8"
-                            placeholder="ID de la sonde">
+                        <!-- <input class="nom-cree" type="number" name="cree-id-sonde" minlength="8" maxlength="8" placeholder="ID de la sonde"> -->
+                            <input class="nom-cree" type="number" name="cree-id-sonde" oninput="limitInput(this, 8)" placeholder="ID de la sonde">
                     </label>
                     <label>
                         <input class="nom-cree" type="text" name="cree-nom-sonde" minlength="1"
