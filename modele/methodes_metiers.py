@@ -109,7 +109,7 @@ def ajout_releve_sonde(connexion, datas: tuple[list, dict]):
             cursor.execute(req)
             connexion.commit()
         except:
-            print(f"Le relevé {datas[i]['idReleve']} de la sonde {datas[i]['idSonde']} n'a pas pu être ajouté")
+            pass
     cursor.close()
 
 
@@ -127,7 +127,7 @@ def ajout_releve(connexion, datas: tuple[list, dict]):
             cursor.execute(req)
             connexion.commit()
         except:
-            print(f"Le relevé {datas[i]['id']} n'a pas pu être ajouté")
+            pass
     cursor.close()
 
 
@@ -308,7 +308,6 @@ def cree_alerte(conn, datas: list):
     param datas: Données de l'alerte devant être créée
     """
     cursor = conn.cursor()
-    # req = f"INSERT INTO alerte (Niv, Operateur, Type, Active, Utilisateur_idUtilisateur, frequence_envoi_mail, Sonde_idSonde) VALUES({datas[0]}, \"{datas[3]}\", \"{datas[2]}\", 1, 1, {datas[1]}, \"{datas[4]}\")"
     req = f"INSERT INTO alerte (Niv, Operateur, Type, Active, Utilisateur_idUtilisateur, frequence_envoi_mail, Sonde_idSonde) VALUES({datas["seuil"]}, \"{datas["ope"]}\", \"{datas["type"]}\", 1, 1, {datas["freq"]}, \"{datas["idSonde"]}\")"
     cursor.execute(req)
     conn.commit()

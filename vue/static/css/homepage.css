@@ -64,18 +64,19 @@ input, label, legend {
 .map-container {
     position: relative;
     overflow: hidden;
-    padding-bottom: 28%; /* Ratio d'aspect pour une carte Google Maps (hauteur / largeur) */
+    padding-bottom: 28%;
     height: 0;
     margin: 0 100px;
     border-radius: 26px;
 }
 
-.map-container iframe {
+.map-container img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .graph-container {
