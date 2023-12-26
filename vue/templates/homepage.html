@@ -16,7 +16,7 @@
     </div>
 </header>
 
-<body onload="afficherHistorique(document.querySelector('input[name=sonde]:checked').value, 5)">
+<body onload="afficherHistorique(document.getElementById('lasonde').value, 5)">
     <div class="divtab">
         <h1 id="presenttab">Le dernier relevé de chaque sonde</h1>
         {% if data|length > 0 %}
@@ -70,26 +70,21 @@
     <div class="graph-container">
         <div class="graph-buttons">
             <button id="temp-btn"
-                onclick="afficherGraphique('temperature', document.querySelector('input[name=sonde]:checked').value, document.querySelector('input[name=qte]:checked').value)">Température</button>
+                onclick="afficherGraphique('temperature', document.getElementById('lasonde').value, document.querySelector('input[name=qte]:checked').value)">Température</button>
             <button id="hum-btn"
-                onclick="afficherGraphique('humidite', document.querySelector('input[name=sonde]:checked').value, document.querySelector('input[name=qte]:checked').value)">Humidité</button>
+                onclick="afficherGraphique('humidite', document.getElementById('lasonde').value, document.querySelector('input[name=qte]:checked').value)">Humidité</button>
             <button id="histo-btn"
-                onclick="afficherHistorique(document.querySelector('input[name=sonde]:checked').value, document.querySelector('input[name=qte]:checked').value)">Historique</button>
-            <fieldset>
-                <legend>Sélectionnez une sonde :</legend>
+                onclick="afficherHistorique(document.getElementById('lasonde').value, document.querySelector('input[name=qte]:checked').value)">Historique</button>
                 <div id="select-sensor">
-                    {% for i in range(sondes|length) %}
-                        {% if sondes[i].statut == 1 %}
-                            {% if i == 0 %}
-                            <input type="radio" id={{ sondes[i].nom }} name="sonde" value={{ sondes[i].id }} checked>
-                            {% else %}
-                            <input type="radio" id={{ sondes[i].nom }} name="sonde" value={{ sondes[i].id }}>
-                            {% endif %}
-                            <label for={{ sondes[i].nom }}>{{ sondes[i].nom }}</label>
-                        {% endif %}
-                    {% endfor %}
+                    <label for="lasonde">Sélectionnez une sonde :</label>
+                    <select list="lessondes" id="lasonde" name="lasonde">
+                        <datalist class="centered" id="lessondes">
+                            {% for i in range(sondes|length) %}
+                                <option value={{ sondes[i].id }}>{{ sondes[i].nom }}</option>
+                            {% endfor %}
+                        </datalist>
+                    </select>
                 </div>
-            </fieldset>
             <fieldset>
                 <legend>Nombre de valeurs souhaité :</legend>
                 <div id="select-valeur">

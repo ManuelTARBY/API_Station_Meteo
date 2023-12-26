@@ -93,6 +93,7 @@ input, label, legend {
     margin: 15px 15px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .alerte-container {
